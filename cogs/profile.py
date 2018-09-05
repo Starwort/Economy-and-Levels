@@ -30,6 +30,9 @@ class Profile:
         if amount == 0:
             await ctx.send('What\'s the point in sending £0?!')
             return
+        if target.id == ctx.author.id:
+            await ctx.send('Don\'t bother sending yourself money, nothing will happen')
+            return
         self.bot.profiles[ctx.author.id]['money'] -= amount
         self.bot.profiles[target.id]['money'] += amount
         await ctx.send('Successfully sent {} £{}'.format(target,amount))
