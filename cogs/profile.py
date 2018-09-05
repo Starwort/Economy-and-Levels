@@ -9,8 +9,8 @@ class Profile:
             'xp'    : 0,
             'note'  : ''
         }
-    @commands.command(aliases=['give'])
-    async def give-money(self,ctx,target:discord.Member,amount:int):
+    @commands.command(name='give-money',aliases=['give'])
+    async def givemoney(self,ctx,target:discord.Member,amount:int):
         '''Give another user money.
         Example:
         [p]give-money @Starwort 100
