@@ -45,7 +45,7 @@ class Profile:
     async def profile(self,ctx,target:discord.Member=None):
         if not target:
             target = ctx.author
-        if not self.bot.profiles[target.id]:
+        if not self.bot.profiles.get(target.id, None):
             await ctx.send(f'{target} does not have a profile.')
             return
         def generatetext(*,level,money,note,xp):
