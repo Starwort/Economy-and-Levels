@@ -1,17 +1,34 @@
 import discord
 import traceback
+import cogs.lib.scorer as score
 class AllMessages():
     def __init__(self, bot):
         self.bot = bot
         self.msg_old = bot.on_message
         self.error_channel = bot.get_channel(485446051298541568)
-        self.channels = {}
+        self.users = {}
         async def new(message):
             pass
         bot.on_message = new
     def __unload(self):
         self.bot.on_message = self.msg_old
     async def on_message(self, message):
+        if self.bot.profiles.get(message.author.id,None):
+            if not self.users.get(message.author.id, 0):
+                messagescore = score.score(message.content)
+                self.users[message.author.id] = score.cooldown
+                self.bot.profiles[message.author.id]['xp'] += messagescore
+                oldlvl = self.bot.profiles[message.author.id]['level']
+                while (self.bot.profiles[message.author.id]['level']**2)*100+10 < self.bot.profiles[message.author.id]['xp']:
+                    self.bot.profiles[message.author.id]['level'] += 1
+                    self.bot.profiles[message.author.id]['xp'] -= (self.bot.profiles[message.author.id]['level']**2)*100+10
+                if oldlvl != self.bot.profiles[message.author.id]['level']:
+                    try:
+                        await ctx.send(f'{message.author} levelled up! ({oldlvl} -> {self.bot.profiles[message.author.id]["level"]})',delete_after=10)
+                    except:
+                        pass
+            else:
+                self.users[message.author.id] -= 1
         try:
             if message.author.bot:
                 return
