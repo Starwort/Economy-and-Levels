@@ -6,6 +6,7 @@ class AllMessages():
         self.bot = bot
         self.msg_old = bot.on_message
         self.error_channel = bot.get_channel(485446051298541568)
+        self.log_channel = bot.get_channel(486887207303512074)
         self.users = {}
         async def new(message):
             pass
@@ -14,21 +15,33 @@ class AllMessages():
         self.bot.on_message = self.msg_old
     async def on_message(self, message):
         if self.bot.profiles.get(message.author.id,None):
+            await self.log_channel.send(f'user {message.author} has a profile')
             if not self.users.get(message.author.id, 0):
+                await self.log_channel.send(f'user {message.author} is not under a ratelimit')
                 messagescore = score.score(message.content)
+                await self.log_channel.send(f'user {message.author} scored {messagescore}')
                 self.users[message.author.id] = score.cooldown
+                await self.log_channel.send(f'user {message.author} is now on cooldown')
                 self.bot.profiles[message.author.id]['xp'] += messagescore
+                xp = self.bot.profiles[message.author.id]['xp']
+                await self.log_channel.send(f'user {message.author} has {xp}')
                 oldlvl = self.bot.profiles[message.author.id]['level']
+                await self.log_channel.send(f'user {message.author} is {oldlvl}')
                 while (self.bot.profiles[message.author.id]['level']**2)*100+10 < self.bot.profiles[message.author.id]['xp']:
                     self.bot.profiles[message.author.id]['level'] += 1
                     self.bot.profiles[message.author.id]['xp'] -= (self.bot.profiles[message.author.id]['level']**2)*100+10
-                if oldlvl != self.bot.profiles[message.author.id]['level']:
+                    lvl = self.bot.profiles[message.author.id]['level']
+                    xp = self.bot.profiles[message.author.id]['xp']
+                    await self.log_channel.send(f'user {message.author} levelled up (now level {lvl} xp {xp})')
+                if oldlvl != lvl:
                     try:
-                        await ctx.send(f'{message.author} levelled up! ({oldlvl} -> {self.bot.profiles[message.author.id]["level"]})',delete_after=10)
+                        await message.channel.send(f'{message.author} levelled up! ({oldlvl} -> {self.bot.profiles[message.author.id]["level"]})',delete_after=10)
                     except:
                         pass
             else:
                 self.users[message.author.id] -= 1
+                cd = self.users[message.author.id]
+                await self.log_channel.send(f'user {message.author}\'s cooldown has been decremented. now: {cd}')
         try:
             if message.author.bot:
                 return
