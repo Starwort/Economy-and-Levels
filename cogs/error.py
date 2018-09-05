@@ -23,7 +23,18 @@ class ErrorCog():
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send('You have given an invalid argument.')
         elif isinstance(error, commands.CommandOnCooldown):
-            await ctx.send('Hold up! You\'re being ratelimited with this command. You can use this again in: '+str(error).split('You are on cooldown. Try again in ')[1])
+            timeleft = float(str(error).split('You are on cooldown. Try again in ')[1].rstrip('s'))
+            s = timeleft % 60
+            if s == timeleft:
+                cooldown = f'{s}s'
+            else:
+                timeleft = timeleft // 60
+                m = timeleft % 60
+                if m == timeleft:
+                    cooldown = f'{m}m{s}s'
+                else:
+                    cooldown = f'{timeleft}h{m}m{s}s'
+            await ctx.send('Hold up! You\'re being ratelimited with this command. You can use this again in: '+cooldown)
             print(error)
         else:
             await ctx.send('An error occurred in the `{}` command. This has been automatically reported for you.'.format(ctx.command.name))
