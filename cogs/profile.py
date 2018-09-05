@@ -45,7 +45,7 @@ class Profile:
     async def profile(self,ctx,target:discord.Member=None):
         if not target:
             target = ctx.author
-        def generatetext(**kwargs):
+        def generatetext(*,level,money,note,xp):
             xptonext = (level**2)*100+10
             progress = xp / xptonext * 100
             bar = '['+'#'*round(progress/5) + '='*(20-round(progress/5))+']'
