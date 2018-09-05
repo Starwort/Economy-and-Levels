@@ -26,10 +26,10 @@ class ErrorCog():
             timeleft = float(str(error).split('You are on cooldown. Try again in ')[1].rstrip('s'))
             s = timeleft % 60
             if s == timeleft:
-                cooldown = f'{s}s'
+                cooldown = f'{round(s,2)}s'
             else:
                 timeleft = timeleft // 60
-                m = timeleft % 60
+                m = int(timeleft % 60)
                 if m == timeleft:
                     cooldown = f'{m}m{s}s'
                 else:
