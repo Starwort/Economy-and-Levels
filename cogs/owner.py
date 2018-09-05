@@ -94,7 +94,7 @@ class OwnerCog:
     @commands.command(name="update",hidden=True)
     @commands.is_owner()
     async def bot_update(self, ctx, cog=None):
-        await ctx.send("```"+run(["git", "pull", "https://github.com/Starwort/Combined-Splatbot.git"], stdout=PIPE,encoding="ASCII").stdout+"```")
+        await ctx.send("```"+run(["git", "pull", "https://github.com/Starwort/Economy-and-Levels.git"], stdout=PIPE,encoding="ASCII").stdout+"```")
         if cog:
             ctx.command = self.cog_reload
             await ctx.reinvoke()

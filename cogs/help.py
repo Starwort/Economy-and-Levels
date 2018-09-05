@@ -60,7 +60,7 @@ class Help(formatter.HelpFormatter):
     async def send(self, dest, content=None, embeds=None):
         if len(embeds) == 1:
             embed = embeds[0]
-            embed.set_author(name='Combined Splatbot Help Manual',icon_url=self.bot.user.avatar_url)
+            embed.set_author(name='Economy and Levels Help Manual',icon_url=self.bot.user.avatar_url)
             await dest.send(embed=embed)
             return
         help_msg = await dest.send(embed = embeds[0])
@@ -123,13 +123,8 @@ class Help(formatter.HelpFormatter):
 
     @property
     def author(self):
-        # Get author dict with username if PM and display name in guild
-        if self.pm_check(self.context):
-            name = self.bot.user.name
-        else:
-            name = self.me.display_name if not '' else self.bot.user.name
         author = {
-                'name': 'Combined Splatbot Help Manual',
+                'name': 'Economy and Levels Help Manual',
                 'icon_url': self.avatar
             }
         return author
@@ -171,7 +166,7 @@ class Help(formatter.HelpFormatter):
         emb = {
             'embed': {
                 'title': '',
-                'description': 'The Combined Splatbot\'s commands',
+                'description': 'Economy and Levels\' commands',
             },
             'footer': {
                 'text': self.get_ending_note()
@@ -288,7 +283,7 @@ class Help(formatter.HelpFormatter):
 
         embeds = []
         embed = discord.Embed(colour=self.colour, **emb['embed'])
-        embed.set_author(name='Combined Splatbot Help Manual Page 1', icon_url=self.avatar)
+        embed.set_author(name='Economy and Levels Help Manual Page 1', icon_url=self.avatar)
         embed.set_footer(**emb['footer'])
         txt = ""
         for field in emb['fields']:
@@ -298,7 +293,7 @@ class Help(formatter.HelpFormatter):
                 txt = field["name"] + field["value"]
                 del embed
                 embed = discord.Embed(colour=self.colour, **emb['embed'])
-                embed.set_author(name='Combined Splatbot Help Manual Page {}'.format(len(embeds)+1), icon_url=self.avatar)
+                embed.set_author(name='Economy and Levels Help Manual Page {}'.format(len(embeds)+1), icon_url=self.avatar)
                 embed.set_footer(**emb['footer'])
             embed.add_field(**field)
         embeds.append(embed)

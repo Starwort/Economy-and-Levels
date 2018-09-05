@@ -36,17 +36,17 @@ class AllMessages():
                         missing_add = 'None :D'
                     else:
                         missing_add = missing_add.strip()
-                    await message.channel.send('''The Combined Splatbot does not have all the permissions required for commands
+                    await message.channel.send('''Economy and Levels does not have all the permissions required for commands
 
 Without these permissions, all commands will be withheld.
 
-The required permissions for Combined Splatbot are:
+The required permissions for Economy and Levels are:
 ```Embed Links
 Read Message History
 Attach Files```
 
 
-The additional recommended permissions for Combined Splatbot are:
+The additional recommended permissions for Economy and Levels are:
 ```Manage Messages
 Add Reactions```
 
@@ -60,7 +60,7 @@ Currently missing recommended permissions:
 ```{}```
 
 
-If the `Combined Splatbot` role (or any other applied role) has these permissions, confirm that no channel overrides are causing the issue.
+If the `Economy and Levels` role (or any other applied role) has these permissions, confirm that no channel overrides are causing the issue.
 If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, missing_add))
                 except discord.errors.Forbidden:
                     pass
