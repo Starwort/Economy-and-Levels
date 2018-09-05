@@ -15,6 +15,8 @@ token = values[0].strip("\n")
 pre = values[1].strip("\n")
 with open('prefixes.txt') as file:
     prefixes = literal_eval(file.read())
+with open('profiles.txt') as file:
+    profiles = literal_eval(files.read())
 def prefix(bot, ctx):
     global pre
     prefixes = bot.additionalprefixdata
@@ -37,6 +39,7 @@ def prefix(bot, ctx):
     return newpre
 bot = commands.Bot(command_prefix=prefix, description=description)
 bot.additionalprefixdata = prefixes
+bot.profiles = profiles
 @bot.event
 async def on_ready():
     print("Logged in as\n{0} ({1})\n--------------------".format(bot.user.name,bot.user.id))
