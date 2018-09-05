@@ -15,7 +15,7 @@ class AllMessages():
         self.bot.on_message = self.msg_old
     async def on_message(self, message):
         if self.bot.profiles.get(message.author.id,None):
-            await self.log_channel.send(f'user {message.author} has a profile')
+            #await self.log_channel.send(f'user {message.author} has a profile')
             if not self.users.get(message.author.id, 0):
                 await self.log_channel.send(f'user {message.author} is not under a ratelimit')
                 messagescore = score.score(message.content)
@@ -28,8 +28,8 @@ class AllMessages():
                 oldlvl = self.bot.profiles[message.author.id]['level']
                 await self.log_channel.send(f'user {message.author} is {oldlvl}')
                 while (self.bot.profiles[message.author.id]['level']**2)*100+10 < self.bot.profiles[message.author.id]['xp']:
-                    self.bot.profiles[message.author.id]['level'] += 1
                     self.bot.profiles[message.author.id]['xp'] -= (self.bot.profiles[message.author.id]['level']**2)*100+10
+                    self.bot.profiles[message.author.id]['level'] += 1
                     lvl = self.bot.profiles[message.author.id]['level']
                     xp = self.bot.profiles[message.author.id]['xp']
                     await self.log_channel.send(f'user {message.author} levelled up (now level {lvl} xp {xp})')
