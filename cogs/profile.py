@@ -15,10 +15,10 @@ class Profile:
         Example:
         [p]give-money @Starwort 100
         '''
-        if not self.bot.profiles[ctx.author.id]:
+        if not self.bot.profiles.get(ctx.author.id,None):
             await ctx.send('You do not have an account! Register with {}register first!'.format(self.bot.command_prefix(self.bot,ctx)[0]))
             return
-        if not self.bot.profiles[target.id]:
+        if not self.bot.profiles.get(target.id,None):
             await ctx.send('They do not have an account! They must register before you can do this.')
             return
         if self.bot.profiles[ctx.author.id]['money'] < amount:
@@ -36,7 +36,7 @@ class Profile:
     @commands.command()
     async def register(self,ctx):
         '''Add yourself to the profile list. This enables economy and levelling for your account.'''
-        if self.bot.profiles[ctx.author.id]:
+        if self.bot.profiles.get(ctx.author.id,None):
             await ctx.send('You can\'t add yourself again!')
             return
         self.bot.profiles[ctx.author.id] = self.profileproto.copy()
