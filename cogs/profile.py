@@ -54,7 +54,7 @@ Profile for user: {target}
 Level: {level} ({xp}/{xptonext}, {progress:.2f}%)
 {bar}
 Money: £{money}
-"{note}""```'''
+{'"'+note+'"' if note else ''}```'''
         await ctx.send(generatetext(**self.bot.profiles[target.id]))
 def setup(bot):
     bot.add_cog(Profile(bot))
