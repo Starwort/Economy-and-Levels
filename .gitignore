@@ -2,3 +2,4 @@ economyandlevels\.properties
 prefixes\.txt
 profiles\.txt
 __pycache__
+cogs/lib/scorer\.py
