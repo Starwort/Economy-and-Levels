@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 class Profile:
-    def __init__(bot):
+    def __init__(self,bot):
         self.bot = bot
         self.profileproto = {
             'level' : 0,
@@ -45,7 +45,7 @@ class Profile:
     async def profile(self,ctx,target:discord.Member=None):
         if not target:
             target = ctx.author
-        level, money, xp, note = **self.bot.profiles[target.id]
+        level, money, xp, note = self.bot.profiles[target.id]
         xptonext = (level**2)*100+10
         progress = xp / xptonext * 100
         bar = '['+'#'*round(progress/5) + '='*(20-round(progress/5))+']'
@@ -53,4 +53,5 @@ class Profile:
 Profile for user: {target}
 Level: {level} ({xp}/{xptonext}, {progress:.2f}%)
 {bar}
-Money: £{money}```''')
+Money: £{money}
+"{note}""```''')
