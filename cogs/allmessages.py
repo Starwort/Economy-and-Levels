@@ -28,6 +28,7 @@ class AllMessages():
                 await self.log_channel.send(f'user {message.author} has {xp}')
                 oldlvl = self.bot.profiles[message.author.id]['level']
                 await self.log_channel.send(f'user {message.author} is {oldlvl}')
+                lvl = self.bot.profiles[message.author.id]['level']
                 while (self.bot.profiles[message.author.id]['level']**2)*100+10 < self.bot.profiles[message.author.id]['xp']:
                     self.bot.profiles[message.author.id]['xp'] -= (self.bot.profiles[message.author.id]['level']**2)*100+10
                     self.bot.profiles[message.author.id]['level'] += 1
