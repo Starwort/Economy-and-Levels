@@ -22,6 +22,9 @@ class ErrorCog():
             await ctx.send('You are missing required arguments.'+"\n" + help[0])
         elif isinstance(error, commands.errors.BadArgument):
             await ctx.send('You have given an invalid argument.')
+        elif isinstance(error, commands.CommandOnCooldown):
+            await ctx.send('Hold up! You\'re being ratelimited with this command.')
+            print(error)
         else:
             await ctx.send('An error occurred in the `{}` command. This has been automatically reported for you.'.format(ctx.command.name))
             trace = traceback.format_exception(type(error), error, error.__traceback__)
@@ -37,5 +40,9 @@ class ErrorCog():
     @commands.command(hidden=True)
     async def errorme(self,ctx):
         raise Exception
+    @commands.command(hidden=True)
+    @commands.cooldown(1, 30, commands.BucketType.user)
+    async def ratelimit(self,ctx):
+        pass
 def setup(bot):
     bot.add_cog(ErrorCog(bot))
