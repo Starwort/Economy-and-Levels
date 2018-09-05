@@ -24,8 +24,9 @@ class ErrorCog():
             await ctx.send('You have given an invalid argument.')
         else:
             await ctx.send('An error occurred in the `{}` command. This has been automatically reported for you.'.format(ctx.command.name))
-            print("Ignoring exception in command {}".format(ctx.command.name))
             trace = traceback.format_exception(type(error), error, error.__traceback__)
+            print("Ignoring exception in command {}".format(ctx.command.name))
+            print(''.join(trace))
             out = '```'
             for i in trace:
                 if len(out+i+'```') > 2000:
