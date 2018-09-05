@@ -3,6 +3,7 @@ from discord import *
 from subprocess import run, PIPE
 import aiofiles
 import importlib as imp, traceback
+from cogs.lib.profilesave import save
 class OwnerCog:
 
     def __init__(self, bot):
@@ -108,12 +109,20 @@ class OwnerCog:
         await self.bot.logout()
     @commands.command(hidden=True)
     @commands.is_owner()
-    async def prefixdebug(self,ctx,guild_id : int, prefix : str):
+    async def prefixdebug(self, ctx, guild_id: int, prefix: str):
         self.bot.additionalprefixdata[guild_id] = prefix
         if prefix == '': del self.bot.additionalprefixdata[guild_id]
         async with aiofiles.open('prefixes.txt','w') as file:
             await file.write(repr(self.bot.additionalprefixdata))
         guild = self.bot.get_guild(guild_id)
         await ctx.send(f'Set prefix for {guild.name if guild else "[INVALID SERVER]"} to `{prefix}`')
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def leveldebug(self, ctx, user_id: int, level: int, sparexp: int):
+        self.bot.profiles[user_id]['level'] = level
+        self.bot.profiles[user_id]['xp'] = sparexp
+        await save(self.bot.profiles)
+        guild = self.bot.get_user(user_id)
+        await ctx.send(f'Set level and xp for {guild.name if guild else "[INVALID USER]"} to `{level} + {sparexp}`')
 def setup(bot):
     bot.add_cog(OwnerCog(bot))

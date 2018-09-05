@@ -1,6 +1,7 @@
 import discord
 import traceback
 import cogs.lib.scorer as score
+from cogs.lib.profilesave import save
 class AllMessages():
     def __init__(self, bot):
         self.bot = bot
@@ -38,6 +39,7 @@ class AllMessages():
                         await message.channel.send(f'{message.author} levelled up! ({oldlvl} -> {self.bot.profiles[message.author.id]["level"]})',delete_after=10)
                     except:
                         pass
+                await save(self.bot.profiles)
             else:
                 self.users[message.author.id] -= 1
                 cd = self.users[message.author.id]

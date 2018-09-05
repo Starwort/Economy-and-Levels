@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from cogs.lib.profilesave import save
 class Profile:
     def __init__(self,bot):
         self.bot = bot
@@ -36,6 +37,7 @@ class Profile:
         self.bot.profiles[ctx.author.id]['money'] -= amount
         self.bot.profiles[target.id]['money'] += amount
         await ctx.send('Successfully sent {} £{}'.format(target,amount))
+        await save(self.bot.profiles)
     @commands.command()
     async def register(self,ctx):
         '''Add yourself to the profile list. This enables economy and levelling for your account.'''
@@ -44,12 +46,13 @@ class Profile:
             return
         self.bot.profiles[ctx.author.id] = self.profileproto.copy()
         await ctx.send('You have been added successfully!')
+        await save(self.bot.profiles)
     @commands.command()
     async def profile(self,ctx,target:discord.Member=None):
         if not target:
             target = ctx.author
         if not self.bot.profiles.get(target.id, None):
-            await ctx.send(f'{target} does not have a profile.')
+            await ctx.send(f'{target + " does" if target.id != ctx.author.id else "You do"} not have a profile.')
             return
         def generatetext(*,level,money,note,xp):
             xptonext = (level**2)*100+10
