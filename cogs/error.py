@@ -41,7 +41,7 @@ class ErrorCog():
     async def errorme(self,ctx):
         raise Exception
     @commands.command(hidden=True)
-    @commands.cooldown(1, 30, commands.BucketType.user)
+    @commands.cooldown(1, 120, commands.BucketType.user)
     async def ratelimit(self,ctx):
         pass
 def setup(bot):
