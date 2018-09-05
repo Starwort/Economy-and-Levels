@@ -16,7 +16,7 @@ pre = values[1].strip("\n")
 with open('prefixes.txt') as file:
     prefixes = literal_eval(file.read())
 with open('profiles.txt') as file:
-    profiles = literal_eval(files.read())
+    profiles = literal_eval(file.read())
 def prefix(bot, ctx):
     global pre
     prefixes = bot.additionalprefixdata
