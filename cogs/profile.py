@@ -45,15 +45,16 @@ class Profile:
     async def profile(self,ctx,target:discord.Member=None):
         if not target:
             target = ctx.author
-        level, money, xp, note = self.bot.profiles[target.id]
-        xptonext = (level**2)*100+10
-        progress = xp / xptonext * 100
-        bar = '['+'#'*round(progress/5) + '='*(20-round(progress/5))+']'
-        await ctx.send(f'''```
+        def generatetext(**kwargs):
+            xptonext = (level**2)*100+10
+            progress = xp / xptonext * 100
+            bar = '['+'#'*round(progress/5) + '='*(20-round(progress/5))+']'
+            return f'''```
 Profile for user: {target}
 Level: {level} ({xp}/{xptonext}, {progress:.2f}%)
 {bar}
 Money: £{money}
-"{note}""```''')
+"{note}""```'''
+        await ctx.send(generatetext(**self.bot.profiles[target.id]))
 def setup(bot):
     bot.add_cog(Profile(bot))
