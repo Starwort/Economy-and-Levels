@@ -24,9 +24,9 @@ class ErrorCog():
             await ctx.send('You have given an invalid argument.')
         elif isinstance(error, commands.CommandOnCooldown):
             timeleft = float(str(error).split('You are on cooldown. Try again in ')[1].rstrip('s'))
-            s = timeleft % 60
-            if s == timeleft:
-                cooldown = f'{round(s,2)}s'
+            s = round(timeleft % 60,2)
+            if s == round(timeleft,2):
+                cooldown = f'{s}s'
             else:
                 timeleft = timeleft // 60
                 m = int(timeleft % 60)
