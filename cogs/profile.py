@@ -1,6 +1,12 @@
 import discord
 from discord.ext import commands
 from cogs.lib.profilesave import save
+from random import randint
+def hasaccount():
+    async def predicate(ctx):
+        if not ctx.bot.profiles.get(ctx.author.id,None):
+            await ctx.send('You do not have an account! Register with {}register first!'.format(ctx.bot.command_prefix(ctx.bot,ctx)[0]))
+            
 class Profile:
     def __init__(self,bot):
         self.bot = bot
@@ -32,7 +38,7 @@ class Profile:
             await ctx.send('What\'s the point in sending £0?!')
             return
         if target.id == ctx.author.id:
-            await ctx.send('Don\'t bother sending yourself money, nothing will happen')
+            await ctx.send('Don\'t bother sending yourself money, nothing will happen!')
             return
         self.bot.profiles[ctx.author.id]['money'] -= amount
         self.bot.profiles[target.id]['money'] += amount
@@ -49,6 +55,7 @@ class Profile:
         await save(self.bot.profiles)
     @commands.command()
     async def profile(self,ctx,target:discord.Member=None):
+        '''Who are you again? You can check this!'''
         if not target:
             target = ctx.author
         if not self.bot.profiles.get(target.id, None):
@@ -65,5 +72,22 @@ Level: {level} ({xp}/{xptonext}, {progress:.2f}%)
 Money: £{money}
 {'"'+note+'"' if note else ''}```'''
         await ctx.send(generatetext(**self.bot.profiles[target.id]))
+    @commands.command()
+    @commands.cooldown(1, 86400, commands.BucketType.user)
+    async def earn(self,ctx):
+        '''Earn yourself some money! Works once per day.'''
+        if not self.bot.profiles.get(ctx.author.id,None):
+            await ctx.send('You do not have an account! Register with {}register first!'.format(self.bot.command_prefix(self.bot,ctx)[0]))
+            return
+        moneyearned = randint(50,100)
+        self.bot.profiles[ctx.author.id]['money'] += moneyearned
+        await ctx.send(f'You earned £{moneyearned}!')
+    @commands.command()
+    @commands.cooldown(1, 3600, commands.BucketType.channel)
+    async def beg(self,ctx):
+        '''Scrape the channel for money! Works once per hour, *per channel*.'''
+        moneyearned = randint(50,100)
+        self.bot.profiles[ctx.author.id]['money'] += moneyearned
+        await ctx.send(f'You earned £{moneyearned}!')
 def setup(bot):
     bot.add_cog(Profile(bot))
