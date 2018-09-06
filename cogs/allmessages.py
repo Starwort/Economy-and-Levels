@@ -22,14 +22,14 @@ class AllMessages():
             if isworthy(member):
                 for i in member.guild.channels:
                     try:
-                        await i.send('Your guild is worthy! You can gain XP here.')
+                        await i.send('Your guild is worthy! You can gain XP and money here.')
                         break
                     except:
                         pass
             else:
                 for i in member.guild.channels:
                     try:
-                        await i.send('Your guild is worthy! You can gain XP here.')
+                        await i.send('Your guild is worthy! You can gain XP and money here.')
                         break
                     except:
                         pass
@@ -121,7 +121,8 @@ If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, m
                 except discord.errors.Forbidden:
                     pass
                 return
-            await self.bot.process_commands(message)
+            if isworthy(message):
+                await self.bot.process_commands(message)
 
         except Exception as error:
             if not isinstance(error, discord.errors.Forbidden):
@@ -136,6 +137,7 @@ If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, m
                     await self.error_channel.send(out+'```')
                 except:
                     pass
-            await self.bot.process_commands(message)
+            if isworthy(message):
+                await self.bot.process_commands(message)
 def setup(bot):
     bot.add_cog(AllMessages(bot))
