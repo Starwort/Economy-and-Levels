@@ -2,6 +2,7 @@ import discord
 import traceback
 import cogs.lib.scorer as score
 from cogs.lib.profilesave import save
+from cogs.lib.spamprevention import isworthy
 class AllMessages():
     def __init__(self, bot):
         self.bot = bot
@@ -9,13 +10,35 @@ class AllMessages():
         self.error_channel = bot.get_channel(485446051298541568)
         self.log_channel = bot.get_channel(486887207303512074)
         self.users = {}
+        with open('disabledguilds.txt') as f:
+            self.bot.disabledGuilds = [int(i) for i in f.read().split('\n')]
         async def new(message):
             pass
         bot.on_message = new
     def __unload(self):
         self.bot.on_message = self.msg_old
+    async def evaluate(self,member):
+        if member.guild.id not in self.bot.disabledGuilds:
+            if isworthy(member):
+                for i in member.guild.channels:
+                    try:
+                        await i.send('Your guild is worthy! You can gain XP here.')
+                        break
+                    except:
+                        pass
+            else:
+                for i in member.guild.channels:
+                    try:
+                        await i.send('Your guild is worthy! You can gain XP here.')
+                        break
+                    except:
+                        pass
+    async def on_member_join(self,member):
+        await self.evaluate(member)
+    async def on_member_leave(self,member):
+        await self.evaluate(member)
     async def on_message(self, message):
-        if self.bot.profiles.get(message.author.id,None):
+        if self.bot.profiles.get(message.author.id,None) and isworthy(message):
             #await self.log_channel.send(f'user {message.author} has a profile')
             if not self.users.get(message.author.id, 0):
                 await self.log_channel.send(f'user {message.author} is not under a ratelimit')

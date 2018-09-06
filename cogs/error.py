@@ -15,7 +15,10 @@ class ErrorCog():
         elif isinstance(error, discord.errors.Forbidden):
             pass
         elif isinstance(error, commands.errors.CheckFailure):
-            await ctx.send('You do not have permission to use this command.')
+            if ctx.cog.__module__ != 'cogs.owner':
+                await ctx.send('You do not have an account! Register with {}register first!'.format(ctx.bot.command_prefix(ctx.bot,ctx)[0]))
+            else:
+                await ctx.send('You do not have permission to use this command.')
         elif isinstance(error, commands.errors.MissingRequiredArgument):
             formatter = commands.formatter.HelpFormatter()
             help = await formatter.format_help_for(ctx, ctx.command)
