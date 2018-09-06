@@ -4,3 +4,4 @@ profiles\.txt
 __pycache__
 cogs/lib/scorer\.py
 cogs/lib/spamprevention\.py
+disabledguilds\.txt
