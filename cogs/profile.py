@@ -85,5 +85,14 @@ Money: £{money}
         moneyearned = randint(5,10)
         self.bot.profiles[ctx.author.id]['money'] += moneyearned
         await ctx.send(f'You earned £{moneyearned}!')
+    @commands.command()
+    @hasaccount()
+    async def setnote(self,ctx,*,note):
+        '''Set your profile note. This will be included in your profile.'''
+        if len(note) <= 50:
+            self.bot.profiles[ctx.author.id]['note'] = note
+            await ctx.send(f'Your profile note has been set to {note}')
+        else:
+            await ctx.send('That note is too long and to prevent abuse to my disk has not been added. (Max length = 50)')
 def setup(bot):
     bot.add_cog(Profile(bot))
