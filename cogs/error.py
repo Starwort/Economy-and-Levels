@@ -15,7 +15,7 @@ class ErrorCog():
         elif isinstance(error, discord.errors.Forbidden):
             pass
         elif isinstance(error, commands.errors.CheckFailure):
-            if ctx.cog.__module__ != 'cogs.owner':
+            if ctx.cog.__module__ == 'cogs.profile':
                 await ctx.send('You do not have an account! Register with {}register first!'.format(ctx.bot.command_prefix(ctx.bot,ctx)[0]))
             else:
                 await ctx.send('You do not have permission to use this command.')

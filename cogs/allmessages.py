@@ -11,7 +11,7 @@ class AllMessages():
         self.log_channel = bot.get_channel(486887207303512074)
         self.users = {}
         with open('disabledguilds.txt') as f:
-            self.bot.disabledGuilds = [int(i) for i in f.read().split('\n')]
+            self.bot.disabledGuilds = {int(i):i for i in f.read().split('\n')}
         async def new(message):
             pass
         bot.on_message = new
@@ -121,7 +121,7 @@ If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, m
                 except discord.errors.Forbidden:
                     pass
                 return
-            if isworthy(message):
+            if isworthy(message) or ctx.command.name == 'worthinessmessages':
                 await self.bot.process_commands(message)
             elif ctx.command:
                 await message.channel.send('Your server is not worthy to run commands! Try again when you run a more respectable server! For more information DM Starwort#6129')
@@ -139,7 +139,7 @@ If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, m
                     await self.error_channel.send(out+'```')
                 except:
                     pass
-            if isworthy(message):
+            if isworthy(message) or ctx.command.name == 'worthinessmessages':
                 await self.bot.process_commands(message)
             elif ctx.command:
                 await message.channel.send('Your server is not worthy to run commands! Try again when you run a more respectable server! For more information DM Starwort#6129')
