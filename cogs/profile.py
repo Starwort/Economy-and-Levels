@@ -92,6 +92,7 @@ Money: £{money}
         if len(note) <= 50:
             self.bot.profiles[ctx.author.id]['note'] = note
             await ctx.send(f'Your profile note has been set to {note}')
+            save(self.bot.profiles)
         else:
             await ctx.send('That note is too long and to prevent abuse to my disk has not been added. (Max length: 50 characters)')
 def setup(bot):
