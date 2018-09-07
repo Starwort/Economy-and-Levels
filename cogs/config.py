@@ -40,6 +40,7 @@ class Configuration:
                 await ctx.send('Your guild\'s worthiness messages were already on!')
         else:
             self.bot.disabledGuilds[ctx.guild.id] = ''
+            await ctx.send('Worthiness messages are off for this guild.')
         async with aiofiles.open('disabledguilds.txt','w') as file:
             await file.write('\n'.join([str(i) for i in self.bot.disabledGuilds]))
 def setup(bot):
