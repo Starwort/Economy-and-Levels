@@ -6,7 +6,6 @@ def hasaccount():
     async def predicate(ctx):
         return bool(ctx.bot.profiles.get(ctx.author.id,None))
     return commands.check(predicate)
-            
 class Profile:
     def __init__(self,bot):
         self.bot = bot

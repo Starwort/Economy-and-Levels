@@ -123,6 +123,8 @@ If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, m
                 return
             if isworthy(message):
                 await self.bot.process_commands(message)
+            else:
+                await message.channel.send('Your server is not worthy to run these commands! Try again when you run a more respectable server! For more information DM Starwort#6129')
 
         except Exception as error:
             if not isinstance(error, discord.errors.Forbidden):
@@ -139,5 +141,7 @@ If problems persist, join the support server: `3xuDR3G`'''.format(missing_req, m
                     pass
             if isworthy(message):
                 await self.bot.process_commands(message)
+            else:
+                await message.channel.send('Your server is not worthy to run these commands! Try again when you run a more respectable server! For more information DM Starwort#6129')
 def setup(bot):
     bot.add_cog(AllMessages(bot))
