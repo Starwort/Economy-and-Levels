@@ -41,6 +41,6 @@ class Configuration:
         else:
             self.bot.disabledGuilds[ctx.guild.id] = ''
         async with aiofiles.open('disabledguilds.txt','w') as file:
-            await file.write('\n'.join([i for i in self.bot.disabledGuilds]))
+            await file.write('\n'.join([str(i) for i in self.bot.disabledGuilds]))
 def setup(bot):
     bot.add_cog(Configuration(bot))
