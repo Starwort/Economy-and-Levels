@@ -57,7 +57,7 @@ class Profile:
         if not target:
             target = ctx.author
         if not self.bot.profiles.get(target.id, None):
-            await ctx.send(f'{target + " does" if target.id != ctx.author.id else "You do"} not have a profile.')
+            await ctx.send(f'{str(target) + " does" if target.id != ctx.author.id else "You do"} not have a profile.')
             return
         def generatetext(*,level,money,note,xp):
             xptonext = (level**2)*100+10
