@@ -20,12 +20,12 @@ class Configuration:
         newprefix = newprefix.lstrip(' ')
         if len(newprefix) > 10:
             return await ctx.send('In order to prevent abuse to my disk, the custom prefix length has been capped at 10. Sorry!')
-        add = ('removed' if newprefix == '' else f'changed to `{newprefix}`') if ctx.guild.id in self.bot.prefixes else f'set to `{newprefix}`'
+        add = ('removed' if newprefix == '' else f'changed to `{newprefix}`') if ctx.guild.id in self.bot.additionalprefixdata else f'set to `{newprefix}`'
         outmsg = f'Your server\'s custom prefix has been {add}'
-        self.bot.prefixes[ctx.guild.id] = newprefix
-        if newprefix == '': del self.bot.prefixes[ctx.guild.id]
+        self.bot.additionalprefixdata[ctx.guild.id] = newprefix
+        if newprefix == '': del self.bot.additionalprefixdata[ctx.guild.id]
         async with aiofiles.open('prefixes.txt','w') as file:
-            await file.write(repr(self.bot.prefixes))
+            await file.write(repr(self.bot.additionalprefixdata))
         await ctx.send(outmsg)
     @commands.command()
     @commands.has_permissions(manage_guild=True)
