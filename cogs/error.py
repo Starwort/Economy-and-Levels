@@ -36,6 +36,7 @@ class ErrorCog():
                 if m == timeleft:
                     cooldown = f'{m}m{s}s'
                 else:
+                    timeleft = timeleft // 60
                     cooldown = f'{timeleft}h{m}m{s}s'
             await ctx.send('Hold up! You\'re being ratelimited with this command. You can use this again in: '+cooldown)
             print(error)
