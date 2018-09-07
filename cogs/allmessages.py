@@ -29,7 +29,7 @@ class AllMessages():
             else:
                 for i in member.guild.channels:
                     try:
-                        await i.send('Your guild is worthy! You can gain XP and money here.')
+                        await i.send('Your guild is not worthy! You cannot gain XP and money here.')
                         break
                     except:
                         pass
