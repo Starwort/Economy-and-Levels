@@ -17,7 +17,7 @@ class Profile:
         }
     @commands.command(name='give-money',aliases=['give'])
     @hasaccount()
-    async def givemoney(self,ctx,target:discord.Member,amount:int):
+    async def givemoney(self,ctx,target:discord.User,amount:int):
         '''Give another user money.
         Example:
         [p]give-money @Starwort 100
@@ -51,7 +51,7 @@ class Profile:
         await ctx.send('You have been added successfully!')
         await save(self.bot.profiles)
     @commands.command()
-    async def profile(self,ctx,target:discord.Member=None):
+    async def profile(self,ctx,target:discord.User=None):
         '''Who are you again? You can check this!'''
         if not target:
             target = ctx.author
