@@ -43,7 +43,7 @@ class Profile:
         await save(self.bot.profiles)
     @commands.command()
     async def register(self,ctx):
-        '''Add yourself to the profile list. This enables economy and levelling for your account.'''
+        '''Add yourself to the profile list. This enables economy and levelling for your account and reveals the rest of the commands.'''
         if self.bot.profiles.get(ctx.author.id,None):
             await ctx.send('You can\'t add yourself again!')
             return
