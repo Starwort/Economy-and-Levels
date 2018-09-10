@@ -98,7 +98,6 @@ class Profile:
         xptonext = (level**2)*100+10
         progress = xp / xptonext * 100
         image = Image.new("RGBA",(768,250),(0,0,0,51))
-        colour = 
         def drawavatar():
             try:
                 pfp = Image.open(requests.get(target.avatar_url.rstrip('?size=1024'), stream=True).raw)
