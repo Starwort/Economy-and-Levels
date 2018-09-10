@@ -64,7 +64,7 @@ class Testing():
         level_font = ImageFont.truetype("calibri.ttf",72)
         draw = ImageDraw.Draw(image)
         white = (255,255,255)
-        black = (100,100,100)
+        black = (200,200,200)
         listie = [[(144,8),"Profile for:",black,font],
                     [(398,8),"Money:",black,font],
                     [(540,8),"Level:",black,font],
@@ -82,6 +82,13 @@ class Testing():
         imgByteArr = io.BytesIO()
         image.save(imgByteArr,format="PNG")
         await ctx.send(file=discord.File(imgByteArr.getvalue(),filename="level.png"))
+    @commands.command(pass_context=True)
+    async def tinttest(self,ctx):
+        image = Image.open('xpbar-empty.png').convert()
+        out = image_tint(image,'#abcdef')
+        outF = io.BytesIO()
+        out.save(outF,format='PNG')
+        await ctx.send(file=discord.File(outF.getvalue(),filename='test.png'))
         
 def setup(bot):
     bot.add_cog(Testing(bot))
