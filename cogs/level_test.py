@@ -86,8 +86,8 @@ class Testing():
     async def tinttest(self,ctx):
         image = Image.open('xpbar-empty.png').convert()
         out = image_tint(image,'#abcdef')
-        percentage = 0.5
-        out.crop((0,0,round(752*percentage),104))
+        percentage = 2
+        out.crop((0,0,round(752/percentage),104))
         outF = io.BytesIO()
         out.save(outF,format='PNG')
         await ctx.send(file=discord.File(outF.getvalue(),filename='test.png'))
