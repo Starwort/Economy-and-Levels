@@ -94,7 +94,7 @@ class Profile:
         if not self.bot.profiles.get(target.id, None):
             await ctx.send(f'{str(target) + " does" if target.id != ctx.author.id else "You do"} not have a profile.')
             return
-        level,money,note,xp = self.bot.profiles[target.id].values()
+        level,money,xp,note = self.bot.profiles[target.id].values()
         await ctx.send(f'level: {level}, money: {money}, note: {note}, xp: {xp}')
         xptonext = (level**2)*100+10
         progress = xp / xptonext * 100
