@@ -95,7 +95,7 @@ class Profile:
             await ctx.send(f'{str(target) + " does" if target.id != ctx.author.id else "You do"} not have a profile.')
             return
         level,money,xp,note = self.bot.profiles[target.id].values()
-        await ctx.send(f'level: {level}, money: {money}, note: {note}, xp: {xp}')
+        #await ctx.send(f'level: {level}, money: {money}, note: {note}, xp: {xp}')
         xptonext = (level**2)*100+10
         progress = xp / xptonext * 100
         image = Image.new("RGBA",(768,250),(0,0,0,51))
@@ -111,7 +111,7 @@ class Profile:
             bar = Image.open("xpbar-empty.png").convert()
             image.alpha_composite(bar,dest=(8,144))
             bar = image_tint(bar,colour.hsl2hex(((level%36)/36,1,0.5)))
-            bar = bar.crop((0,0,round(752*progress),104))
+            bar = bar.crop((0,0,round(752*progress/100),104))
             image.alpha_composite(bar,dest=(8,144))
         def drawtext(array):
             draw.text(xy=(array[0][0],array[0][1]),text=array[1],fill=array[2],font=array[3])
@@ -128,7 +128,7 @@ class Profile:
             [(144,58),str(target),white,font],
             [(477,58),"£"+str(money),white,font],
             [(215,105),f'({round(xp)}/{xptonext}, {progress:.2f}%)',white,font],
-            [(650,8),level,white,level_font]
+            [(650,8),str(level),white,level_font]
         ]
         with TPE(max_workers=9) as executor:
             for thing in listie:
