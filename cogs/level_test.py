@@ -56,7 +56,7 @@ class Testing():
             bar = Image.open("xpbar-empty.png").convert()
             image.alpha_composite(bar,dest=(8,144))
             bar = image_tint(bar,'#abcdef')
-            bar.crop((0,0,round(752*percentage),104))
+            bar = bar.crop((0,0,round(752*percentage),104))
             image.alpha_composite(bar,dest=(8,144))
         def drawtext(array):
             draw.text(xy=(array[0][0],array[0][1]),text=array[1],fill=array[2],font=array[3])
@@ -86,8 +86,8 @@ class Testing():
     async def tinttest(self,ctx):
         image = Image.open('xpbar-empty.png').convert()
         out = image_tint(image,'#abcdef')
-        percentage = 2
-        out.crop((0,0,round(752/percentage),104))
+        percentage = 0.5
+        out = out.crop((0,0,round(752*percentage),104))
         outF = io.BytesIO()
         out.save(outF,format='PNG')
         await ctx.send(file=discord.File(outF.getvalue(),filename='test.png'))
