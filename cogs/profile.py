@@ -52,7 +52,9 @@ class Profile:
         await save(self.bot.profiles)
     @commands.command()
     async def profile(self,ctx,target:discord.User=None):
-        '''Who are you again? You can check this!'''
+        '''Who are you again? You can check this!
+        
+        PIL code written by Suhail6octoling#9775'''
         if not target:
             target = ctx.author
         if not self.bot.profiles.get(target.id, None):
