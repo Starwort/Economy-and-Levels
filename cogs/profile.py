@@ -112,7 +112,7 @@ class Profile:
         def drawxp():
             bar = Image.open("xpbar-empty.png").convert()
             image.alpha_composite(bar,dest=(8,144))
-            bar = image_tint(bar,colour.hsl2hex(((level%36)/36,1,0.5)))
+            bar = image_tint(bar,colour.hsl2hex(((level%36)/36,0.8,0.5)))
             bar = bar.crop((0,0,round(752*progress/100),104))
             image.alpha_composite(bar,dest=(8,144))
         def drawtext(array):
