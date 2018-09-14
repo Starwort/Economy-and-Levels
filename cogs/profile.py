@@ -161,7 +161,7 @@ Money: £{money}
         await ctx.send(f'You earned £{moneyearned}!')
     @commands.command()
     @hasaccount()
-    @commands.cooldown(1, 3600, commands.BucketType.channel)
+    @commands.cooldown(1, 3600, commands.BucketType.guild)
     async def beg(self,ctx):
         '''Scrape the channel for money! Works once per hour, *per channel*.'''
         moneyearned = randint(5,10)
