@@ -128,7 +128,7 @@ class Profile:
             [(540,8),"Level:",black,font],
             [(144,105),"XP:",black,font],
             [(144,58),str(target),white,font],
-            [(477,58),"£"+str(money),white,font],
+            [(398,58),"£"+str(money),white,font],
             [(215,105),f'({round(xp)}/{xptonext}, {progress:.2f}%)',white,font],
             [(650,8),str(level),white,level_font]
         ]
